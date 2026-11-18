@@ -174,7 +174,8 @@ both regenerate from `docs/research/inventory.json`.
 | 50A6Q | V0000.09.61B.Q0721 | untested | achieved | [@aadnaane](https://github.com/aadnaane) |
 | 55A7KAU | V0000.09.09O.P1015 | working | achieved | [@JacksonDCollins](https://github.com/JacksonDCollins) |
 | 75U8QTUK | V0000.09.60I.Q0813 (UK) | working | achieved | [@kingpandacc](https://github.com/kingpandacc) |
-| 43A5LE | V0000.09.60A.Q0707 | working | untested | [@antmagl](https://github.com/antmagl) |
+| 43A5LE | V0000.09.60A.Q0707 | working | achieved | [@antmagl](https://github.com/antmagl), unit owner (live fingerprint, 2026-11-18) |
+| 43A6N | V0002.09.60A.Q0707 | untested | untested | TV owner (identity only) |
 | 43A5FE | V0010.09.09A.P0930 | working | achieved | [@gitgost-sa2](https://github.com/gitgost-sa2) |
 | 55E7QTUK | V0000.09.09D.P1001 (UK) | working | achieved | [@damiennnnn](https://github.com/damiennnnn) |
 | 32A35HUV | V0000.09.01O.P0814 | working | achieved | [@EmoFa](https://github.com/EmoFa) |

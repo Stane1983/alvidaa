@@ -788,10 +788,26 @@ class Handler(SimpleHTTPRequestHandler):
             url = q.get("url", "")
             if not url.startswith("http"):
                 return self._json({"ok": False, "error": "http url required"})
-            self.bridge.call("ui_service", "launchapp",
-                             {"appId": "vidaa-recon", "name": "Recon",
-                              "url": url, "urlType": "1", "storeType": "custom"})
-            return self._json({"ok": True, "opened": url})
+            # Newer VIDAA builds ignore made-up app IDs. Reuse the installed
+            # Browser entry and override only its URL (measured on 43A5LE /
+            # V0000.09.60A.Q0707; appId 16, storeType 100).
+            browser = next((a for a in self.bridge.apps_list()
+                            if str(a.get("appId")) == "16"), None)
+            # After the measured stock-only SystemUI restart, the first
+            # applist response can be transiently empty. appId 16 and its
+            # launch payload were already observed on this same unit, so keep
+            # the local recovery page reachable during that refresh window.
+            payload = ({k: browser[k] for k in
+                        ("appId", "name", "url", "urlType", "storeType")
+                        if k in browser} if browser else
+                       {"appId": "16", "name": "TV Browser",
+                        "url": "url16", "storeType": 100})
+            payload["url"] = url
+            payload["urlType"] = "1"
+            self.bridge.call("ui_service", "launchapp", payload)
+            return self._json({"ok": True, "opened": url,
+                               "appId": payload.get("appId"),
+                               "usedFallback": browser is None})
         if u.path == "/doom":
             self.send_response(200)
             self.send_header("Content-Type", "text/html")
@@ -850,7 +866,8 @@ def main():
     Handler.bridge = bridge
     threading.Thread(target=bridge.watcher_loop, daemon=True).start()
     httpd = ThreadingHTTPServer(("0.0.0.0", PORT), Handler)
-    print(f"launcher at http://<this-host>:{PORT}/  (WS at /ws) — watcher running", flush=True)
+    watcher_state = "enabled" if load_config().get("watcher", {}).get("enabled", True) else "disabled"
+    print(f"launcher at http://<this-host>:{PORT}/  (WS at /ws) — home watcher {watcher_state}", flush=True)
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:

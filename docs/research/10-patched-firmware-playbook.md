@@ -23,7 +23,8 @@
 | V0000.09.61B.Q0721 (50A6Q (50A60QXVT), UAE / intl (SSDP region 4)) | NT72690 (Novatek; aarch64 kernel, armhf ELF32 userland) | closed | gated | working | blocked | achieved | [@aadnaane](https://github.com/aadnaane) |
 | V0000.09.09O.P1015 (55A7KAU (internal 55U66GAVT), AU (AUS; GetCountryCode AUS, SSDP region 6)) | MTK9602 | working | untested | untested | untested | achieved | [@JacksonDCollins](https://github.com/JacksonDCollins) |
 | V0000.09.60I.Q0813 (UK) (75U8QTUK, UK (GBR; internal region EU_A)) | MTK9655 (aarch64 kernel; 32-bit ARM userland confirmed on-device: phoenix worker process.arch=arm, 2026-11-06) | open | open | untested | untested | achieved | [@kingpandacc](https://github.com/kingpandacc) |
-| V0000.09.60A.Q0707 (43A5LE (internal 43A60LEVS_0002), EU_A (ITA)) | MTK9603 | untested | gated | working | untested | untested | [@antmagl](https://github.com/antmagl) |
+| V0000.09.60A.Q0707 (43A5LE (internal 43A60LEVS_0002), EU_A (ITA)) | MTK9603 | untested | gated | working | untested | achieved | [@antmagl](https://github.com/antmagl), unit owner (live fingerprint, 2026-11-18) |
+| V0002.09.60A.Q0707 (43A6N, EU) | ? | untested | untested | untested | untested | untested | TV owner (identity only) |
 | V0010.09.09A.P0930 (43A5FE, EU) | MTK9602 | open | open | closed | untested | achieved | [@gitgost-sa2](https://github.com/gitgost-sa2) |
 | V0000.09.09D.P1001 (UK) (55E7QTUK (internal 55E70QEVS_0002, serial type 55E7QE), UK (GBR; bridge region EU_A; SSDP blob region=0)) | MTK9603 | open | open | untested | n-a | achieved | [@damiennnnn](https://github.com/damiennnnn) |
 | V0000.09.01O.P0814 (32A35HUV, CAN) | MTK9602 | open | open | untested | untested | achieved | [@EmoFa](https://github.com/EmoFa) |
@@ -69,6 +70,13 @@ The matrix now carries several generations, four of them rooted:
   boot persistence on this build; re-arm after reboot. Model guide:
   [100U7Q / V0000.09.60I.Q0813](../models/100U7Q/V0000.09.60I.Q0813/README.md);
   tools: [tools/u7q/](../../tools/u7q/).
+- **43A5LE / V0000.09.60A.Q0707 (owner unit, 2026-11-18):** the same broad
+  fetcher → superwatch command 82 → vendor IPK postinst path produced direct
+  uid-0 proof (`CapEff 000001ffffffffff`). The proof package was removed with
+  command 83; no shell or persistence was installed. The initial owner-reported
+  `43A6N / V0002.09.60A.Q0707` identity conflicts with the live browser
+  fingerprint, so this result belongs only to the `43A5LE / V0000` row.
+  Evidence: [model findings](../models/43A5LE/V0000.09.60A.Q0707/findings/01-root-2026-11-18.md).
 
 ## Observations and candidate primitives
 
